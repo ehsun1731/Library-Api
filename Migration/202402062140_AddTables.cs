@@ -22,13 +22,13 @@ namespace LibMigration
             Create.Table("Book")
                  .WithColumn("Id").AsInt32().Identity().PrimaryKey()
                  .WithColumn("Title").AsString(50).NotNullable()
-                 .WithColumn("AuthorID").AsInt32().ForeignKey()
-                 .WithColumn("UserId").AsInt32().NotNullable().ForeignKey()
+                 .WithColumn("AuthorID").AsInt32().ForeignKey("Fk_Book_Author","Author","Id")
+                 .WithColumn("UserId").AsInt32().NotNullable().ForeignKey("Fk_Book_User","User","Id")
                  .WithColumn("Count").AsInt32();
 
             Create.Table("Category")
                 .WithColumn("Id").AsInt32().Identity().PrimaryKey()
-                .WithColumn("BookId").AsInt32().ForeignKey()
+                .WithColumn("BookId").AsInt32().ForeignKey("Fk_Category_Book","Book","Id")
                 .WithColumn("Name").AsString(50).NotNullable();
 
             Create.Table("User")
