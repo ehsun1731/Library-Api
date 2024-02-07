@@ -1,5 +1,6 @@
 ﻿using Library_api.DTO;
 using Library_api.Entities;
+using Library_api.EntitiesMap;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,8 +8,12 @@ namespace Library_api.Services
 {
     public class AuthorService
     {
-       
-        public static List <Author>authors = new List<Author>();
+
+        private readonly EFDBContext _context;
+        public AuthorService()
+        {
+            _context = new EFDBContext();
+        }
 
         public void AddAuthor(AddAuthorDto dto)
         {
@@ -18,20 +23,19 @@ namespace Library_api.Services
                 Name = dto.Name
             };
 
-            authors.Add(author);
-            
-           
-           
+            _context.Authors.Add(author);
+            _context.SaveChanges();
+
         }
-        public List <Author> GetAuthors()
+        public List <GetAuthorDto> GetAuthors()
         {
-            return authors;
+            return Authors;
         }
         public void DeletAuthor(int id)
         {
 
-            var delete = authors.Where(_ => _.Id == id).First();
-            authors.Remove(delete);
+            var delete = _context.Authors.Where(_ => _.Id == id).First();
+            _context.Authors.Remove(delete);
 
         }
     }
