@@ -7,5 +7,11 @@
         public int Count { get; set; }
         public int RentBook { get; set; }
         public int BookCount { get; internal set; }
+        public Author Author { get; set; }
+        public int AuthorID { get; set; }
+        public User User { get; set; }
+        public int UserId { get; set; }
+        public HashSet<Category> Categories { get; set; }
+
     }
 }
